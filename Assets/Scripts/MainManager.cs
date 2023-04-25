@@ -7,8 +7,6 @@ using System.IO;
 
 public class MainManager : MonoBehaviour
 {
-    public static MainManager Instance;
-
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
@@ -21,19 +19,12 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    [SerializeField] private GameObject bestScoreText;
+
 
     private void Awake()
     {
-        // make sure only one instance of MainManager exists
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        
+        bestScoreText.GetComponent<Text>().text = "Name: " + GameData.instance.playerName + "| Best Score: " + GameData.instance.bestPlayerName + " " + GameData.instance.bestScore;
     }
 
 
@@ -54,6 +45,7 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+                
     }
 
     private void Update()
@@ -90,7 +82,12 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-    }
 
+        if (m_Points > GameData.instance.bestScore)
+        {
+            GameData.instance.SaveBestScore(m_Points);
+        }
+
+    }
 
 }

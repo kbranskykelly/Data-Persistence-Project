@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,27 +8,15 @@ using UnityEditor;
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
-     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    
     // Start a new scene
     public void StartNew()
     {
+       //MainManager.Instance.SetUsername(username);
        SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    // Exits the application
+     // Exits the application
     public void Exit()
     {
 #if UNITY_EDITOR
